@@ -19,16 +19,13 @@ export default function LikeButton({
       setLikes(result.likes);
     });
   };
-  
 
   return (
     <button
       onClick={handleLike}
       disabled={isPending}
       className={`mt-3 w-full text-center bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition 
-        ${
-        isPending && "opacity-50 cursor-not-allowed"
-      }`}
+        ${isPending && "opacity-50 cursor-not-allowed"}`}
     >
       {isPending ? "Liking..." : `👍 Like (${likes})`}
     </button>
