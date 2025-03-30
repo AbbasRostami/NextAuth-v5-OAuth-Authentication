@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 const Header = () => {
   const pathname = usePathname();
-  const router = useRouter();
   console.log(pathname);
 
   const { data: session }: any = useSession();
