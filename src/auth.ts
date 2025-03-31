@@ -26,9 +26,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       authorize: async (credentials) => {
         try {
-          console.log("📩 دریافت اطلاعات کاربر:", credentials);
+          console.log("📩 Retrieving user information:", credentials);
+
           const res = await fetch(
-            "https://next-auth-v5-oauth-authentication.vercel.app/api/auth/login",
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -42,23 +43,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const data = await res.json();
 
           if (!res.ok) {
-            throw new Error(
-              data.error || "❌ ورود ناموفق، لطفاً دوباره تلاش کنید."
+            return Promise.reject(
+              new Error(data.error || "❌ Incorrect email or password.")
             );
           }
 
-          console.log("Access Token:", data);
-
-          return {
-            accessToken: data.accessToken,
-            id: data.id,
-            email: data.email,
-            username: data.username,
-          };
+          console.log("✅ Login successful:", data);
+          return data;
         } catch (error) {
-          console.error("⚠️ خطا در احراز هویت:", error);
-          throw new Error(
-            "🚨 مشکلی در احراز هویت رخ داده است، لطفاً بعداً تلاش کنید."
+          console.error("⚠️ Authentication error:", error);
+          return Promise.reject(
+            new Error(
+              "🚨 An authentication issue occurred. Please try again later."
+            )
           );
         }
       },
@@ -67,8 +64,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     jwt: async ({ token, user, account }) => {
-      console.log("🔑 User Object:", user);
       console.log("🔑 Account Object:", account);
+      console.log("🔑 User Object:", user);
 
       if (account?.access_token) {
         token.accessToken = account.access_token;
@@ -81,7 +78,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("🔑 Final Token:", token);
       return token;
     },
-
     session: async ({ session, token }) => {
       console.log("🛠 Session Callback - Token:", token);
 
@@ -99,12 +95,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       return true;
-    },
-  },
-
-  events: {
-    createUser: async ({ user }) => {
-      console.log("✅ کاربر جدید ثبت‌ نام کرد:", user);
     },
   },
 });

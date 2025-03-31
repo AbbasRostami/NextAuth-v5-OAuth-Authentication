@@ -40,14 +40,15 @@ export default function SignupForm() {
         const res = await axios.post("/api/auth/signup", values);
         toast.success(res?.data?.message);
         router.push("/posts");
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.error(error.message); 
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response?.data?.error || "مشکلی پیش آمد!");
         } else {
           toast.error("An unknown error occurred.");
         }
       }
-    }
+    },
+    
   });
 
   return (
