@@ -38,13 +38,16 @@ export default function SignupForm() {
     onSubmit: async (values) => {
       try {
         const res = await axios.post("/api/auth/signup", values);
-
         toast.success(res?.data?.message);
         router.push("/posts");
-      } catch (error: any) {
-        toast.error(error?.response?.data?.error);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error(error.message); 
+        } else {
+          toast.error("An unknown error occurred.");
+        }
       }
-    },
+    }
   });
 
   return (

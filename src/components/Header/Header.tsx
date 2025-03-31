@@ -2,13 +2,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+
 const Header = () => {
   const pathname = usePathname();
   console.log(pathname);
 
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
 
-  console.log("Session dataaa:", session?.accessToken);
+  console.log("Session dataaa:", session);
 
   const linkStyle = (href: string) => `
     relative text-xl font-semibold transition-all duration-300
