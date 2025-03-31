@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate"
+
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
