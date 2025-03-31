@@ -27,36 +27,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         try {
           console.log("📩 Retrieving user information:", credentials);
-
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password,
-              }),
-            }
-          );
-
+      
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          });
+      
           const data = await res.json();
-
+      
           if (!res.ok) {
-            return Promise.reject(
-              new Error(data.error || "❌ Incorrect email or password.")
-            );
+            return Promise.reject(new Error(data.error || "❌ Incorrect email or password."));
           }
-
+      
           console.log("✅ Login successful:", data);
           return data;
         } catch (error) {
           console.error("⚠️ Authentication error:", error);
-          return Promise.reject(
-            new Error(
-              "🚨 An authentication issue occurred. Please try again later."
-            )
-          );
+          return Promise.reject(new Error("🚨 An authentication issue occurred. Please try again later."));
         }
       },
     }),
@@ -97,4 +88,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
   },
+
 });

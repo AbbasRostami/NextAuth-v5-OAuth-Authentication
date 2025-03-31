@@ -1,6 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { users } from "@/app/lib/users";
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
@@ -13,43 +15,35 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+    // پیدا کردن کاربر در دیتابیس
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user) {
+    if (!user || user.password !== password) {
       return NextResponse.json(
         { error: "ایمیل یا رمز عبور اشتباه است." },
         { status: 401 }
       );
     }
 
+    // ایجاد توکن JWT
     const accessToken = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-      },
+      { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET as string,
-      { algorithm: "HS256" }
+      { expiresIn: "1d" }
     );
 
     return NextResponse.json(
       {
         message: "ورود موفقیت‌آمیز بود",
-        accessToken: accessToken, 
-
+        accessToken,
         id: user.id,
         username: user.username,
         email: user.email,
       },
       { status: 200 }
     );
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(error.message); // اگر به جزئیات خطا نیاز دارید، اینجا می‌توانید خطا را لاگ کنید.
-    }
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "خطایی در پردازش درخواست رخ داد." },
       { status: 500 }
