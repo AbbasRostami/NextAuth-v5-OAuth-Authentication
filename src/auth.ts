@@ -1,7 +1,17 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    accessToken?: string;
+  }
+  interface User {
+    accessToken?: string;
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     GitHubProvider({
@@ -28,13 +38,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
 
           const data = await res.json();
-          console.log("📜 پاسخ API:", data);
 
           if (!res.ok) {
             throw new Error(
               data.error || "❌ ورود ناموفق، لطفاً دوباره تلاش کنید."
             );
           }
+
+          console.log("Access Token:", data);
 
           return data;
         } catch (error) {
@@ -48,20 +59,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   callbacks: {
-    jwt: async ({ token, user, account }: any) => {
-      console.log("🔑 JWT Callback - Account:", account);
+    jwt: async ({ token, user, account }) => {
+      console.log("🔑 Account Object:", account);
+      console.log("🔑 User Object:", user);
 
-      if (account) {
+      if (account?.access_token) {
         token.accessToken = account.access_token;
       }
 
+      if (user?.accessToken) {
+        token.accessToken = user.accessToken;
+      }
+
+      console.log("🔑 Final Token:", token);
       return token;
     },
-
-    session: async ({ session, token }: any) => {
+    session: async ({ session, token }) => {
       console.log("🛠 Session Callback - Token:", token);
 
-      session.accessToken = token.accessToken || token.sub;
+      session.accessToken = token.accessToken as string | undefined;
 
       return session;
     },
