@@ -2,7 +2,7 @@ import LikeButton from "@/components/Buttons/LikeButton";
 import Link from "next/link";
 
 export interface PostsType {
-  id: number;
+  id: string ;
   title: string;
   body: string;
   userId: number;
@@ -13,12 +13,14 @@ export default async function Posts() {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
       cache: "force-cache",
     });
+    const data = await res.json();
+    console.log("data", data);
 
     if (!res.ok) {
       throw new Error("Failed to fetch posts");
     }
 
-    return res.json();
+    return data;
   };
 
   const posts = await GetPosts();
@@ -44,7 +46,7 @@ export default async function Posts() {
                 </div>
               </Link>
 
-              <LikeButton postId={post.id} initialLikes={0} />
+              <LikeButton postId={Number(post.id)} initialLikes={0} />
             </div>
           ))}
         </div>
