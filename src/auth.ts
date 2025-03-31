@@ -47,7 +47,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           console.log("Access Token:", data);
 
-          return data;
+          return {
+            accessToken: data.accessToken,
+            id: data.id,
+            email: data.email,
+            username: data.username,
+          };
+          
         } catch (error) {
           console.error("⚠️ خطا در احراز هویت:", error);
           throw new Error(
@@ -59,21 +65,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   callbacks: {
-    jwt: async ({ token, user, account }) => {
-      console.log("🔑 Account Object:", account);
+    jwt: async ({ token, user }) => {
       console.log("🔑 User Object:", user);
-
-      if (account?.access_token) {
-        token.accessToken = account.access_token;
-      }
-
+      
+      // از user.accessToken به جای account.access_token استفاده کن
       if (user?.accessToken) {
         token.accessToken = user.accessToken;
       }
-
-      console.log("🔑 Final Token:", token);
+    
       return token;
     },
+    
     session: async ({ session, token }) => {
       console.log("🛠 Session Callback - Token:", token);
 
