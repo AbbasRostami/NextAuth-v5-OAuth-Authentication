@@ -27,15 +27,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         try {
           console.log("📩 دریافت اطلاعات کاربر:", credentials);
-
-          const res = await fetch("https://next-auth-v5-oauth-authentication.vercel.app/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          });
+          const res = await fetch(
+            "https://next-auth-v5-oauth-authentication.vercel.app/api/auth/login",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          );
 
           const data = await res.json();
 
@@ -53,7 +55,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: data.email,
             username: data.username,
           };
-          
         } catch (error) {
           console.error("⚠️ خطا در احراز هویت:", error);
           throw new Error(
@@ -65,17 +66,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, account }) => {
       console.log("🔑 User Object:", user);
-      
-      // از user.accessToken به جای account.access_token استفاده کن
+      console.log("🔑 Account Object:", account);
+
+      if (account?.access_token) {
+        token.accessToken = account.access_token;
+      }
+
       if (user?.accessToken) {
         token.accessToken = user.accessToken;
       }
-    
+
+      console.log("🔑 Final Token:", token);
       return token;
     },
-    
+
     session: async ({ session, token }) => {
       console.log("🛠 Session Callback - Token:", token);
 
