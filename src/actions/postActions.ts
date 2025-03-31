@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-let likes: Record<number, number> = {
+const likes: Record<number, number> = {
   1: 5,
   2: 3,
   3: 8,
