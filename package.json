@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build"
+     "build": "prisma generate && next build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -38,7 +38,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^9.23.0",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
     "prisma": "^6.5.0",
