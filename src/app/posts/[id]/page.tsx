@@ -4,10 +4,8 @@ import { PostsType } from "../page";
 export default async function PostDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>; // رفع مشکل نوع params
+  params: { id: string }; // تغییر نوع id از number به string
 }): Promise<JSX.Element> {
-  const resolvedParams = await params; // حل مشکل Promise
-
   const GetDetails = async (id: number): Promise<PostsType> => {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
@@ -16,7 +14,8 @@ export default async function PostDetailPage({
     return res.json();
   };
 
-  const post = await GetDetails(Number(resolvedParams.id));
+  // تبدیل id از string به number
+  const post = await GetDetails(Number(params.id));
 
   return (
     <div className="container mx-auto p-4">
