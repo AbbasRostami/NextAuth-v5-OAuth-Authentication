@@ -3,20 +3,19 @@ import { JSX } from "react";
 export default async function PostDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<JSX.Element> {
 
   console.log("params", params);
   
-  const postId = Number(params.id)
-  const GetDetails = async (id: string)=> {
+  const postId = Number((await params).id); 
+  const GetDetails = async (id: string) => {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
       { cache: "no-store" }
     );
     return res.json();
   };
-
 
   if (isNaN(postId)) {
     return <div>Invalid post ID</div>;

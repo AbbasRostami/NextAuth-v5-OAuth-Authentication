@@ -16,21 +16,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "رمز عبور و تأیید آن مطابقت ندارند." }, { status: 400 });
     }
 
-    // بررسی وجود کاربر
     const userExists = await prisma.user.findUnique({ where: { email } });
     if (userExists) {
       return NextResponse.json({ error: "این ایمیل قبلاً ثبت شده است." }, { status: 400 });
     }
 
-    // هش کردن پسورد قبل از ذخیره در دیتابیس
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ایجاد کاربر جدید
     const newUser = await prisma.user.create({
       data: {
         username,
         email,
-        password: hashedPassword, // ذخیره رمز هش شده
+        password: hashedPassword, 
         role: "USER",
       },
     });

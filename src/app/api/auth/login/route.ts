@@ -18,19 +18,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "مشکل احراز هویت. لطفاً بعداً امتحان کنید." }, { status: 500 });
     }
 
-    // یافتن کاربر در دیتابیس
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       return NextResponse.json({ error: "ایمیل یا رمز عبور نادرست است." }, { status: 401 });
     }
 
-    // بررسی صحت رمز عبور
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return NextResponse.json({ error: "ایمیل یا رمز عبور نادرست است." }, { status: 401 });
     }
 
-    // ایجاد توکن JWT
     const accessToken = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
