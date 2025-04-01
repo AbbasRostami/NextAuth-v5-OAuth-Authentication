@@ -25,19 +25,22 @@ export default function LoginForm() {
     }),
 
     onSubmit: async (values) => {
+      console.log("🚀 Sending login request:", values);
+
       const res = await signIn("credentials", {
         email: values.email,
         password: values.password,
         redirect: false,
       });
 
+      console.log("✅ Server response:", res);
+
       if (res?.error) {
         toast.error(res.error);
         return;
       }
 
-      toast.success(".ورود موفقیت آمیز بود");
-
+      toast.success("ورود موفقیت‌آمیز بود");
       router.push("/");
     },
   });

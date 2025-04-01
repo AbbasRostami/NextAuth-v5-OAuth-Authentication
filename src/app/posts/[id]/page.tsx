@@ -1,12 +1,15 @@
 import { JSX } from "react";
-import { PostsType } from "../page";
 
 export default async function PostDetailPage({
   params,
 }: {
-  params: { id: string }; // تغییر نوع id از number به string
+  params: { id: string };
 }): Promise<JSX.Element> {
-  const GetDetails = async (id: number): Promise<PostsType> => {
+
+  console.log("params", params);
+  
+  const postId = Number(params.id)
+  const GetDetails = async (id: string)=> {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
       { cache: "no-store" }
@@ -14,8 +17,12 @@ export default async function PostDetailPage({
     return res.json();
   };
 
-  // تبدیل id از string به number
-  const post = await GetDetails(Number(params.id));
+
+  if (isNaN(postId)) {
+    return <div>Invalid post ID</div>;
+  }
+
+  const post = await GetDetails(postId.toString());
 
   return (
     <div className="container mx-auto p-4">

@@ -1,8 +1,7 @@
 import LikeButton from "@/components/Buttons/LikeButton";
 import Link from "next/link";
-
 export interface PostsType {
-  id: string ;
+  id: number;
   title: string;
   body: string;
   userId: number;
