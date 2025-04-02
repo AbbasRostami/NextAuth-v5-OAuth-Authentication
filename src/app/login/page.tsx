@@ -7,8 +7,12 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+
 export default function LoginForm() {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,23 +29,25 @@ export default function LoginForm() {
     }),
 
     onSubmit: async (values) => {
-      console.log("🚀 Sending login request:", values);
+      startTransition(async () => {
+        console.log("🚀 Sending login request:", values);
 
-      const res = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        redirect: false,
+        const res = await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: false,
+        });
+
+        console.log("✅ Server response:", res);
+
+        if (res?.error) {
+          toast.error(res.error);
+          return;
+        }
+
+        toast.success("ورود موفقیت‌آمیز بود");
+        router.push("/");
       });
-
-      console.log("✅ Server response:", res);
-
-      if (res?.error) {
-        toast.error(res.error);
-        return;
-      }
-
-      toast.success("ورود موفقیت‌آمیز بود");
-      router.push("/");
     },
   });
 
@@ -96,8 +102,16 @@ export default function LoginForm() {
             type="submit"
             className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 rounded-xl text-lg font-semibold tracking-wide 
                      hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105"
+            disabled={isPending}
           >
-            Login
+            {isPending ? (
+              <div className="flex justify-center items-center">
+                <div className="spinner-border animate-spin w-6 h-6 border-t-2 border-b-2 border-white rounded-full"></div>{" "}
+                {/* Spinner */}
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
