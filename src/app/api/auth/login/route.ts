@@ -17,7 +17,6 @@ export async function POST(request: Request) {
     }
 
     if (!process.env.JWT_SECRET) {
-      console.error("🚨 JWT_SECRET تنظیم نشده است.");
       return NextResponse.json(
         { error: "مشکل احراز هویت. لطفاً بعداً امتحان کنید." },
         { status: 500 }
@@ -48,7 +47,6 @@ export async function POST(request: Request) {
         { expiresIn: "1h" }
       );
     } catch (error) {
-      console.error("🚨 خطا در امضای JWT:", error);
       return NextResponse.json(
         { error: "مشکلی در ایجاد توکن پیش آمده است." },
         { status: 500 }
