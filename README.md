@@ -31,62 +31,42 @@ This is a **Next.js 15** authentication project using **NextAuth v5** with **OAu
 - **Prisma ORM**
 - **Tailwind CSS** (Styling)
 
-
-![Project Structure](https://img.shields.io/badge/structure-organized-brightgreen)
-
 ## 🗂️ Intelligent Project Architecture
-
-```bash
-📦 AbbasRostami-NextAuth-v5-OAuth-Authentication
-├── 📄 Core Configuration
-│   ├── README.md              # Project documentation
-│   ├── next.config.ts         # Next.js advanced config
-│   ├── tailwind.config.ts     # Tailwind customization
-│   └── tsconfig.json          # TypeScript rules
+![Project Structure](https://img.shields.io/badge/structure-organized-brightgreen)
+```
+📦 nextauth-v5-oauth-auth
+├── 📜 Core Foundation
+│   ├── next.config.ts       # ⚙️ Next.js Advanced Config
+│   ├── tailwind.config.ts   # 🎨 Design System Setup
+│   └── tsconfig.json        # 🛠️ TypeScript Rules
 │
-├── 🔒 Security & Auth
-│   ├── prisma/
-│   │   └── schema.prisma      # Database schema
-│   ├── src/auth.ts            # Auth configuration
-│   └── src/middleware.ts      # Route protection
+├── 🔐 Auth Infrastructure
+│   ├── prisma/schema.prisma # 🗃️ Database Schema
+│   ├── src/auth.ts          # 🔑 Auth Configuration
+│   └── src/middleware.ts    # 🛡️ Security Layer
 │
-├── ⚡️ Server Actions
+├── ⚡️ Action Controllers
 │   └── src/actions/
-│       ├── formActions.ts     # Form handling logic
-│       └── postActions.ts     # Post CRUD operations
+│       ├── formActions.ts   # 📝 Form Handling
+│       └── postActions.ts   # 📮 Content Management
 │
-├── 🎨 UI Layer
-│   ├── public/                # Static assets
+├── 🎨 UI Components
+│   ├── public/              # 📁 Static Assets
 │   └── src/app/
-│       ├── globals.css        # Global styles
-│       ├── layout.tsx         # Root layout
-│       └── components/
-│           ├── Buttons/       # Interactive elements
-│           ├── Header/        # Navigation system
-│           └── Footer/        # Page footer
+│       ├── components/      # 🧩 Atomic Design System
+│       └── globals.css      # 🌈 Global Styles
 │
-├── 🔌 API Endpoints
+├── 🌐 API Gateway
 │   └── src/app/api/
 │       └── auth/
-│           ├── [...nextauth]/ # NextAuth core routes
-│           ├── login/         # Custom login handler
-│           └── signup/        # Registration flow
+│           ├── [...nextauth] # 🔗 NextAuth Core
+│           ├── login/        # 🖋️ Custom Auth Flow
+│           └── signup/       # 📝 Registration Handler
 │
-├── 🖥️ Pages & Routes
-│   ├── src/app/
-│   │   ├── (auth)/
-│   │   │   ├── login/        # Auth page
-│   │   │   └── register/     # Signup flow
-│   │   ├── posts/            # Content feed
-│   │   │   └── [id]/         # Dynamic post page
-│   │   └── users/            # User management
-│   │
-│   └── src/lib/utils.ts       # Shared utilities
-│
-└── 🛠️ Dev Tooling
-    ├── .env.example           # Env template
-    ├── eslint.config.mjs      # Code quality
-    └── postcss.config.mjs     # CSS processing
+└── 🛠️ Development Toolkit
+    ├── .env.example         # 📋 Configuration Template
+    ├── eslint.config.mjs    # ✨ Code Quality
+    └── postcss.config.mjs   # 🎨 CSS Processing
 ```
 
 ## 🛠️ Installation & Setup
@@ -106,7 +86,39 @@ yarn install  # or npm install
 
 3️⃣ Set up environment variables
 Create a **.env.local** file and copy the values from **.env.example**, then update them with your credentials.
+```bash
+# Create environment file
+cp .env.example .env.local
+```
+# 🛡️ NextAuth Configuration
+```
+NEXTAUTH_SECRET="your_ultra_secure_secret_key"  # Generate using: openssl rand -base64 32
+NEXTAUTH_URL=http://localhost:3000             # Development URL
+NEXTAUTH_TRUST_HOST=true                       # Enable in development
 
+# 🔑 Authentication Providers
+# ============================
+
+# 🐙 GitHub OAuth
+GITHUB_CLIENT_ID="your_github_oauth_client_id"
+GITHUB_CLIENT_SECRET="your_github_oauth_client_secret"
+
+# 📧 Google OAuth
+AUTH_GOOGLE_ID="your_google_oauth_client_id.apps.googleusercontent.com"
+AUTH_GOOGLE_SECRET="your_google_oauth_client_secret"
+
+# 🗄️ Database Configuration
+# =========================
+DATABASE_URL="mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>?retryWrites=true&w=majority"
+
+# 🔒 Security Tokens
+# ==================
+JWT_SECRET="your_jwt_encryption_key"  # Generate using: openssl rand -base64 32
+
+# 🌐 API Configuration
+# ====================
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
 4️⃣ Run the project
 ```
 yarn dev  # or npm run dev
