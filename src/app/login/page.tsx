@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormik } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
@@ -13,43 +13,41 @@ export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-    }),
-
-    onSubmit: async (values) => {
-      startTransition(async () => {
-        console.log("🚀 Sending login request:", values);
-
-        const res = await signIn("credentials", {
-          email: values.email,
-          password: values.password,
-          redirect: false,
-        });
-
-        console.log("✅ Server response:", res);
-
-        if (res?.error) {
-          toast.error(res.error);
-          return;
-        }
-
-        toast.success("ورود موفقیت‌آمیز بود");
-        router.push("/");
-      });
-    },
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
   });
+
+  const onSubmit = async (values: { email: string; password: string }) => {
+    startTransition(async () => {
+      console.log("🚀 Sending login request:", values);
+
+      const res = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+
+      console.log("✅ Server response:", res);
+
+      if (res?.error) {
+        toast.error(res.error);
+        return;
+      }
+
+      toast.success("ورود موفقیت‌آمیز بود");
+      router.push("/");
+    });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -61,59 +59,64 @@ export default function LoginForm() {
           Login to Personal Account
         </h2>
 
-        <form onSubmit={formik.handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-blue-400 mb-2 text-base">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Enter your email"
-            />
-            {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-blue-400 mb-2 text-base">
-              Password:
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Enter your password"
-            />
-            {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {formik.errors.password}
-              </p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 rounded-xl text-lg font-semibold tracking-wide 
-                     hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105"
-            disabled={isPending}
-          >
-            {isPending ? (
-              <div className="flex justify-center items-center">
-                <div className="spinner-border animate-spin w-6 h-6 border-t-2 border-b-2 border-white rounded-full"></div>{" "}
-                {/* Spinner */}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form className="space-y-6">
+              <div>
+                <label className="block text-blue-400 mb-2 text-base">
+                  Email:
+                </label>
+                <Field
+                  type="email"
+                  name="email"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                  placeholder="Enter your email"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
-            ) : (
-              "Login"
-            )}
-          </button>
-        </form>
+
+              <div>
+                <label className="block text-blue-400 mb-2 text-base">
+                  Password:
+                </label>
+                <Field
+                  type="password"
+                  name="password"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                  placeholder="Enter your password"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 rounded-xl text-lg font-semibold tracking-wide 
+                     hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105"
+                disabled={isSubmitting || isPending}
+              >
+                {isPending ? (
+                  <div className="flex justify-center items-center">
+                    <div className="spinner-border animate-spin w-6 h-6 border-t-2 border-b-2 border-white rounded-full"></div>{" "}
+                  </div>
+                ) : (
+                  "Login"
+                )}
+              </button>
+            </Form>
+          )}
+        </Formik>
 
         <div className="flex justify-center items-center gap-4 mt-6 w-full">
           <button

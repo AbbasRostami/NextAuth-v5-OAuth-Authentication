@@ -1,58 +1,55 @@
 "use client";
 
 import axios from "axios";
-import { useFormik } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import * as Yup from "yup";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 
 export default function SignupForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .min(3, "Username must be at least 3 characters")
-        .required("Username is required"),
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
-        .required("Confirm password is required"),
-    }),
-
-    onSubmit: async (values) => {
-      startTransition(async () => {
-        try {
-          const res = await axios.post("/api/auth/signup", values);
-          toast.success(res?.data?.message);
-          router.push("/posts");
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            toast.error(error.response?.data?.error || "مشکلی پیش آمد!");
-          } else {
-            toast.error("An unknown error occurred.");
-          }
-        }
-      });
-    },
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .min(3, "Username must be at least 3 characters")
+      .required("Username is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Passwords do not match")
+      .required("Confirm password is required"),
   });
+
+  const onSubmit = async (values: Record<string, string>) => {
+    startTransition(async () => {
+      try {
+        const res = await axios.post("/api/auth/signup", values);
+        toast.success(res?.data?.message);
+        router.push("/posts");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response?.data?.error || "مشکلی پیش آمد!");
+        } else {
+          toast.error("An unknown error occurred.");
+        }
+      }
+    });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -64,90 +61,90 @@ export default function SignupForm() {
           Sign Up
         </h2>
 
-        <form onSubmit={formik.handleSubmit} className="space-y-1">
-          <div>
-            <label className="block text-blue-400 text-base">Username:</label>
-            <input
-              type="text"
-              name="username"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Enter your username"
-            />
-            {formik.touched.username && formik.errors.username && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.username}</p>
-            )}
-          </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form className="space-y-1">
+            <div>
+              <label className="block text-blue-400 text-base">Username:</label>
+              <Field
+                type="text"
+                name="username"
+                className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                placeholder="Enter your username"
+              />
+              <ErrorMessage
+                name="username"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-          <div>
-            <label className="block text-blue-400 text-base">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Enter your email"
-            />
-            {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
-            )}
-          </div>
+            <div>
+              <label className="block text-blue-400 text-base">Email:</label>
+              <Field
+                type="email"
+                name="email"
+                className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                placeholder="Enter your email"
+              />
+              <ErrorMessage
+                name="email"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-          <div>
-            <label className="block text-blue-400 text-base">Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Enter your password"
-            />
-            {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
-            )}
-          </div>
+            <div>
+              <label className="block text-blue-400 text-base">Password:</label>
+              <Field
+                type="password"
+                name="password"
+                className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                placeholder="Enter your password"
+              />
+              <ErrorMessage
+                name="password"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-          <div>
-            <label className="block text-blue-400 text-base">
-              Confirm Password:
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="w-full p-4 mb-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
-              placeholder="Confirm your password"
-            />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">
-                {formik.errors.confirmPassword}
-              </p>
-            )}
-          </div>
+            <div>
+              <label className="block text-blue-400 text-base">
+                Confirm Password:
+              </label>
+              <Field
+                type="password"
+                name="confirmPassword"
+                className="w-full p-4 mb-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all duration-300 transform hover:scale-105"
+                placeholder="Confirm your password"
+              />
+              <ErrorMessage
+                name="confirmPassword"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-xl text-lg font-semibold tracking-wide 
-                   hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105"
-            disabled={isPending} 
-          >
-            {isPending ? (
-              <div className="flex justify-center items-center">
-                <div className="spinner-border animate-spin w-6 h-6 border-t-2 border-b-2 border-white rounded-full"></div>
-              </div>
-            ) : (
-              "Register"
-            )}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-xl text-lg font-semibold tracking-wide 
+                     hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <div className="flex justify-center items-center">
+                  <div className="spinner-border animate-spin w-6 h-6 border-t-2 border-b-2 border-white rounded-full"></div>
+                </div>
+              ) : (
+                "Register"
+              )}
+            </button>
+          </Form>
+        </Formik>
 
         <div className="flex justify-center items-center gap-4 mt-6 w-full">
           <button
