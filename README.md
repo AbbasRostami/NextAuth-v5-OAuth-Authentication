@@ -78,19 +78,19 @@ git clone https://github.com/AbbasRostami/nextauth-v5-oauth-authentication.git
 cd nextauth-v5-oauth-authentication
 ```
 
-2️⃣ Install dependencies
+### 2️⃣ Install dependencies
 
 ```
 yarn install  # or npm install
 ```
 
-3️⃣ Set up environment variables
+### 3️⃣ Set up environment variables
 Create a **.env.local** file and copy the values from **.env.example**, then update them with your credentials.
 ```bash
 # Create environment file
 cp .env.example .env.local
 ```
-# 🛡️ NextAuth Configuration
+##### 🛡️ NextAuth Configuration
 ```
 NEXTAUTH_SECRET="your_ultra_secure_secret_key"  # Generate using: openssl rand -base64 32
 NEXTAUTH_URL=http://localhost:3000             # Development URL
@@ -119,7 +119,7 @@ JWT_SECRET="your_jwt_encryption_key"  # Generate using: openssl rand -base64 32
 # ====================
 NEXT_PUBLIC_API_URL="http://localhost:3000"
 ```
-4️⃣ Run the project
+### 4️⃣ Run the project
 ```
 yarn dev  # or npm run dev
 ```
