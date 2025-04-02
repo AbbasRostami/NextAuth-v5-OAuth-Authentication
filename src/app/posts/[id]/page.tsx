@@ -1,26 +1,36 @@
+import { Metadata } from "next";
 import { JSX } from "react";
+
+async function getPost(id: string) {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) return null;
+  return res.json();
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const post = await getPost(params.id);
+
+  return {
+    title: post ? `${post.title} | Blog` : "Post not found",
+    description: post
+      ? post.body.slice(0, 100) + "..."
+      : "This post is not available.",
+  };
+}
 
 export default async function PostDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }): Promise<JSX.Element> {
-  console.log("params", params);
-
   const postId = Number((await params).id);
-  const GetDetails = async (id: string) => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${id}`,
-      { cache: "no-store" }
-    );
-    return res.json();
-  };
-
-  if (isNaN(postId)) {
-    return <div>Invalid post ID</div>;
-  }
-
-  const post = await GetDetails(postId.toString());
+  const post = await getPost(postId.toString());
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 p-6">

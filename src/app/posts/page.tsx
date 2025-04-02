@@ -1,4 +1,5 @@
 import LikeButton from "@/components/Buttons/LikeButton";
+import { Metadata } from "next";
 import Link from "next/link";
 export interface PostsType {
   id: number;
@@ -6,6 +7,10 @@ export interface PostsType {
   body: string;
   userId: number;
 }
+export const metadata: Metadata = {
+  title: "Posts List | Blog",
+  description: "Browse the latest blog posts and enjoy engaging content.",
+};
 
 export default async function Posts() {
   const GetPosts = async (): Promise<PostsType[]> => {
