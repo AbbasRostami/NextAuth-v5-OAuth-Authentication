@@ -24,10 +24,23 @@ export default function LikeButton({
     <button
       onClick={handleLike}
       disabled={isPending}
-      className={`mt-3 w-full text-center bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition 
-        ${isPending && "opacity-50 cursor-not-allowed"}`}
+      className={`relative mt-4 w-full text-center py-3 rounded-xl font-semibold text-white transition-all duration-300 transform 
+      ${
+        isPending
+          ? "bg-green-400 cursor-not-allowed opacity-50"
+          : "bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 hover:scale-105 shadow-lg hover:shadow-xl"
+      }`}
     >
-      {isPending ? "Liking..." : `👍 Like (${likes})`}
+      {isPending ? (
+        <div className="flex items-center justify-center gap-2">
+          <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+          Liking...
+        </div>
+      ) : (
+        <span className="flex items-center justify-center gap-2">
+          👍 Like ({likes})
+        </span>
+      )}
     </button>
   );
 }
