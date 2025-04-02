@@ -6,11 +6,9 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    // دریافت محتوای درخواست به صورت JSON
     const requestBody = await request.json();
-    console.log('Request Body:', requestBody);  // مشاهده محتوای درخواست
+    console.log('Request Body:', requestBody);  
 
-    // استخراج فیلدها
     const { username, email, password, confirmPassword } = requestBody;
 
     if (!username || !email || !password || !confirmPassword) {
@@ -21,16 +19,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "رمز عبور و تأیید آن مطابقت ندارند." }, { status: 400 });
     }
 
-    // بررسی وجود کاربر
     const userExists = await prisma.usersAuth.findUnique({ where: { email } });
     if (userExists) {
       return NextResponse.json({ error: "این ایمیل قبلاً ثبت شده است." }, { status: 400 });
     }
 
-    // هش کردن رمز عبور
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ایجاد کاربر جدید
     const newUser = await prisma.usersAuth.create({
       data: {
         username,
