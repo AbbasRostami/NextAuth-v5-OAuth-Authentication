@@ -1,4 +1,9 @@
-# NextAuth v5 OAuth Authentication
+# 🔐 NextAuth v5 OAuth Authentication 
+
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&style=for-the-badge)
+![NextAuth](https://img.shields.io/badge/NextAuth-v5-blue?logo=auth0&style=for-the-badge)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-brightgreen?logo=prisma&style=for-the-badge)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb&style=for-the-badge)
 
 This is a **Next.js 15** authentication project using **NextAuth v5** with **OAuth providers (GitHub, Google, etc.)** and **MongoDB Atlas** for database management.
 
@@ -9,6 +14,14 @@ This is a **Next.js 15** authentication project using **NextAuth v5** with **OAu
 - Protected routes with middleware
 - Styled with Tailwind CSS
 - Database integration with MongoDB Atlas
+
+- ## 🌟 Features
+
+- ✅ **OAuth Providers**: Google, GitHub & More
+- 🔒 **Protected Routes** with Middleware
+- 🎨 **Tailwind CSS Styled**
+- 🛡️ **Session Encryption** & CSRF Protection
+- 📦 **Prisma ORM** with MongoDB Atlas
 
 ## 🛠️ Tech Stack
 
@@ -21,27 +34,59 @@ This is a **Next.js 15** authentication project using **NextAuth v5** with **OAu
 
 ![Project Structure](https://img.shields.io/badge/structure-organized-brightgreen)
 
-## Project Structure 🗂️
+## 🗂️ Intelligent Project Architecture
 
 ```bash
-📂 abbasrostami-nextauth-v5-oauth-authentication/
-├── README.md
-├── .env.example
-├── prisma/
-│   ├── schema.prisma
-├── src/
-│   ├── auth.ts
-│   ├── middleware.ts
-│   ├── app/
-│   │   ├── api/auth/[...nextauth]/route.ts
-│   │   ├── login/page.tsx
-│   │   ├── register/page.tsx
-│   │   ├── posts/page.tsx
-│   │   ├── users/page.tsx
-│   ├── components/
-│   │   ├── Header/Header.tsx
-│   │   ├── Footer/index.tsx
-│   └── lib/utils.ts
+📦 AbbasRostami-NextAuth-v5-OAuth-Authentication
+├── 📄 Core Configuration
+│   ├── README.md              # Project documentation
+│   ├── next.config.ts         # Next.js advanced config
+│   ├── tailwind.config.ts     # Tailwind customization
+│   └── tsconfig.json          # TypeScript rules
+│
+├── 🔒 Security & Auth
+│   ├── prisma/
+│   │   └── schema.prisma      # Database schema
+│   ├── src/auth.ts            # Auth configuration
+│   └── src/middleware.ts      # Route protection
+│
+├── ⚡️ Server Actions
+│   └── src/actions/
+│       ├── formActions.ts     # Form handling logic
+│       └── postActions.ts     # Post CRUD operations
+│
+├── 🎨 UI Layer
+│   ├── public/                # Static assets
+│   └── src/app/
+│       ├── globals.css        # Global styles
+│       ├── layout.tsx         # Root layout
+│       └── components/
+│           ├── Buttons/       # Interactive elements
+│           ├── Header/        # Navigation system
+│           └── Footer/        # Page footer
+│
+├── 🔌 API Endpoints
+│   └── src/app/api/
+│       └── auth/
+│           ├── [...nextauth]/ # NextAuth core routes
+│           ├── login/         # Custom login handler
+│           └── signup/        # Registration flow
+│
+├── 🖥️ Pages & Routes
+│   ├── src/app/
+│   │   ├── (auth)/
+│   │   │   ├── login/        # Auth page
+│   │   │   └── register/     # Signup flow
+│   │   ├── posts/            # Content feed
+│   │   │   └── [id]/         # Dynamic post page
+│   │   └── users/            # User management
+│   │
+│   └── src/lib/utils.ts       # Shared utilities
+│
+└── 🛠️ Dev Tooling
+    ├── .env.example           # Env template
+    ├── eslint.config.mjs      # Code quality
+    └── postcss.config.mjs     # CSS processing
 ```
 
 ## 🛠️ Installation & Setup
@@ -49,8 +94,8 @@ This is a **Next.js 15** authentication project using **NextAuth v5** with **OAu
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/AbbasRostami/nextauth-v5-oauth-authentication.git
+cd nextauth-v5-oauth-authentication
 ```
 
 2️⃣ Install dependencies
