@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextAuth v5 OAuth Authentication
 
-## Getting Started
+This is a **Next.js 15** authentication project using **NextAuth v5** with **OAuth providers (GitHub, Google, etc.)** and **MongoDB Atlas** for database management.
 
-First, run the development server:
+## 🚀 Features
+
+- Authentication with OAuth providers (Google, GitHub, etc.)
+- Secure session management with NextAuth
+- Protected routes with middleware
+- Styled with Tailwind CSS
+- Database integration with MongoDB Atlas
+
+## 🛠️ Tech Stack
+
+- **Next.js 15** (App Router)
+- **NextAuth.js v5**
+- **MongoDB Atlas** (Database)
+- **Prisma ORM**
+- **Tailwind CSS** (Styling)
+
+
+![Project Structure](https://img.shields.io/badge/structure-organized-brightgreen)
+
+## Project Structure 🗂️
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+📂 abbasrostami-nextauth-v5-oauth-authentication/
+├── README.md
+├── .env.example
+├── prisma/
+│   ├── schema.prisma
+├── src/
+│   ├── auth.ts
+│   ├── middleware.ts
+│   ├── app/
+│   │   ├── api/auth/[...nextauth]/route.ts
+│   │   ├── login/page.tsx
+│   │   ├── register/page.tsx
+│   │   ├── posts/page.tsx
+│   │   ├── users/page.tsx
+│   ├── components/
+│   │   ├── Header/Header.tsx
+│   │   ├── Footer/index.tsx
+│   └── lib/utils.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Installation & Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1️⃣ Clone the repository
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
 
-## Learn More
+2️⃣ Install dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```
+yarn install  # or npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3️⃣ Set up environment variables
+Create a **.env.local** file and copy the values from **.env.example**, then update them with your credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4️⃣ Run the project
+```
+yarn dev  # or npm run dev
+```
 
-## Deploy on Vercel
+Application will be running at: http://localhost:3000
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔑 Authentication Providers
+This project uses **NextAuth v5** for authentication. You can add more OAuth providers by modifying **src/auth.ts**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔐 Protected Routes
+
+Some routes (**/posts**, **/users**) are **protected** and require authentication. Middleware in **middleware.ts** handles access control.
+
+## 📜 License
+
+This project is open-source and available under the **MIT License**.
+
+---
+
+**Happy Coding!** 🚀  
+**Developed with ❤️ by [Abbas Rostami](https://github.com/AbbasRostami)**  
+
+[![GitHub Stars](https://img.shields.io/github/stars/AbbasRostami/NextAuth-v5-OAuth-Authentication?style=for-the-badge&logo=github&label=Stars)](https://github.com/:username/NextAuth-v5-OAuth-Authentication/stargazers)
