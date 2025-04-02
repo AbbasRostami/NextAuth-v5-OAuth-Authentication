@@ -28,26 +28,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           console.log("📩 Sending login request:", credentials);
 
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          );
 
           const data = await res.json();
           console.log("🔍 API login response:", data);
 
           if (!res.ok) {
-            return Promise.reject(new Error(data.error || "❌ Incorrect email or password."));
+            return Promise.reject(
+              new Error(data.error || "❌ Incorrect email or password.")
+            );
           }
 
           return { ...data, accessToken: data.accessToken };
         } catch (error) {
           console.error("⚠️ Authentication error:", error);
-          return Promise.reject(new Error("🚨 An authentication issue occurred."));
+          return Promise.reject(
+            new Error("🚨 An authentication issue occurred.")
+          );
         }
       },
     }),
@@ -78,7 +85,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     authorized: async ({ auth, request }: any) => {
       const isAuthorized = !!auth?.accessToken;
-      const isPrivateRoute = request.nextUrl.pathname.startsWith("/posts");
+      const privateRoutes = ["/posts", "/users"];
+
+      const isPrivateRoute = privateRoutes.some((route) =>
+        request.nextUrl.pathname.startsWith(route)
+      );
 
       if (isPrivateRoute && !isAuthorized) {
         return Response.redirect(new URL("/login", request.nextUrl.origin));
