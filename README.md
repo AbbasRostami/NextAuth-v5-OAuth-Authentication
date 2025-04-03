@@ -4,6 +4,7 @@
 ![NextAuth](https://img.shields.io/badge/NextAuth-v5-blue?logo=auth0&style=for-the-badge)
 ![Prisma](https://img.shields.io/badge/Prisma-ORM-brightgreen?logo=prisma&style=for-the-badge)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb&style=for-the-badge)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 This is a **Next.js 15** authentication project using **NextAuth v5** with **OAuth providers (GitHub, Google, etc.)** and **MongoDB Atlas** for database management.
 
