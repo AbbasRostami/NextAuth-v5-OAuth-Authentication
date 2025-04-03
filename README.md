@@ -31,7 +31,7 @@ This is a **Next.js 15** authentication project using **NextAuth v5** with **OAu
 - **Prisma ORM**
 - **Tailwind CSS** (Styling)
 
-## 🗂️ Intelligent Project Architecture
+## 🗂️ Project Architecture
 ![Project Structure](https://img.shields.io/badge/structure-organized-brightgreen)
 ```
 📦 nextauth-v5-oauth-auth
