@@ -8,14 +8,6 @@
 
 This is a **Next.js 15** authentication project using **NextAuth v5** with **OAuth providers (GitHub, Google, etc.)** and **MongoDB Atlas** for database management.
 
-## 🚀 Features
-
-- Authentication with OAuth providers (Google, GitHub, etc.)
-- Secure session management with NextAuth
-- Protected routes with middleware
-- Styled with Tailwind CSS
-- Database integration with MongoDB Atlas
-
 - ## 🌟 Features
 
 - ✅ **OAuth Providers**: Google, GitHub & More
