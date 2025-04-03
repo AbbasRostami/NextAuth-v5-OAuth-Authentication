@@ -135,4 +135,4 @@ This project is open-source and available under the **MIT License**.
 **Happy Coding!** 🚀  
 **Developed with ❤️ by [Abbas Rostami](https://github.com/AbbasRostami)**  
 
-[![GitHub Stars](https://img.shields.io/github/stars/AbbasRostami/NextAuth-v5-OAuth-Authentication?style=for-the-badge&logo=github&label=Stars)](https://github.com/:username/NextAuth-v5-OAuth-Authentication/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/AbbasRostami/NextAuth-v5-OAuth-Authentication?style=for-the-badge&logo=github&label=Stars)](https://github.com/AbbasRostami/NextAuth-v5-OAuth-Authentication/stargazers)
