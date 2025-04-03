@@ -1,10 +1,42 @@
 # 🔐 NextAuth v5 OAuth Authentication 
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&style=for-the-badge)
-![NextAuth](https://img.shields.io/badge/NextAuth-v5-blue?logo=auth0&style=for-the-badge)
-![Prisma](https://img.shields.io/badge/Prisma-ORM-brightgreen?logo=prisma&style=for-the-badge)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb&style=for-the-badge)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+<h2 align="center">
+  🔧 <b>Tech Stack</b> ⚙️
+</h2>
+
+<p align="center">
+  <a href="https://nextjs.org/" target="_blank">
+    <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.1.7-000000?logo=nextdotjs&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+  
+  <a href="https://www.typescriptlang.org/" target="_blank">
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind%20CSS-3.4.1-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://next-auth.js.org/" target="_blank">
+    <img alt="NextAuth.js" src="https://img.shields.io/badge/NextAuth.js-5.0.0--beta.25-6236FF?logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDBDNS4zNzIgMCAwIDUuMzcyIDAgMTJzNS4zNzIgMTIgMTIgMTIgMTItNS4zNzIgMTItMTJTMTguNjI4IDAgMTIgMHptMCAxOC4yNTVjLTMuNDU0IDAtNi4yNTUtMi44LTYuMjU1LTYuMjU1UzguNTQ2IDUuNzQ1IDEyIDUuNzQ1czYuMjU1IDIuOCA2LjI1NSA2LjI1NS0yLjggNi4yNTUtNi4yNTUgNi4yNTV6TTEyIDguNDk3Yy0xLjkzOCAwLTMuNTAzIDEuNTY1LTMuNTAzIDMuNTAzUzEwLjA2MiAxNS41IDEyIDE1LjVzMy41MDMtMS41NjUgMy41MDMtMy41MDNTMTMuOTM4IDguNDk3IDEyIDguNDk3eiIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4K&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://www.prisma.io/" target="_blank">
+    <img alt="Prisma ORM" src="https://img.shields.io/badge/Prisma-6.5.0-0C344B?logo=prisma&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://jwt.io/" target="_blank">
+    <img alt="JWT" src="https://img.shields.io/badge/JWT-9.0.2-8A2BE2?logo=jsonwebtokens&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://www.mongodb.com/atlas" target="_blank">
+    <img alt="MongoDB Atlas" src="https://img.shields.io/badge/MongoDB_Atlas-47A248?logo=mongodb&logoColor=white&style=for-the-badge">
+  </a>&nbsp;&nbsp;
+
+  <a href="https://www.npmjs.com/package/bcryptjs" target="_blank">
+    <img alt="bcryptjs" src="https://img.shields.io/badge/bcryptjs-3.0.2-FF6C37?logo=npm&logoColor=white&style=for-the-badge">
+  </a>
+</p>
 
 This is a **Next.js 15** authentication project using **NextAuth v5** with **OAuth providers (GitHub, Google, etc.)** and **MongoDB Atlas** for database management.
 
