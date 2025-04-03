@@ -119,6 +119,65 @@ yarn dev  # or npm run dev
 
 Application will be running at: http://localhost:3000
 
+
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Client
+    participant Server
+    participant NextAuth
+    participant Prisma
+    participant Middleware
+
+    User->>Client: Submit Credentials
+    Client->>Server: POST /api/auth/[action]
+    activate Server
+    
+    Server->>NextAuth: Process Request
+    activate NextAuth
+    NextAuth->>Prisma: Query Database
+    activate Prisma
+    Prisma-->>NextAuth: User Data
+    deactivate Prisma
+    
+    alt Valid
+        NextAuth->>Client: Set HttpOnly Cookie
+    else Invalid
+        NextAuth->>Client: Error Response
+    end
+    deactivate NextAuth
+    deactivate Server
+
+    Client->>Middleware: Request Route
+    activate Middleware
+    Middleware->>NextAuth: Verify Session
+    activate NextAuth
+    NextAuth-->>Middleware: Session Status
+    deactivate NextAuth
+    
+    alt Valid
+        Middleware->>Server: Forward Request
+        Server->>Client: Protected Content
+    else Invalid
+        Middleware->>Client: Redirect
+    end
+    deactivate Middleware
+```
+
+
+## 🏗️ Core Architecture
+
+### 🔄 Authentication Flow
+
+## 📡 API Endpoints
+
+| Endpoint            |  Method  |            Description          |
+|---------------------|----------|---------------------------------|
+| `/api/auth/login`   |  `POST`  | User login with JWT issuance    |
+| `/api/auth/signup`  |  `POST`  | New user registration           |
+
+
 ## 🔑 Authentication Providers
 This project uses **NextAuth v5** for authentication. You can add more OAuth providers by modifying **src/auth.ts**.
 
