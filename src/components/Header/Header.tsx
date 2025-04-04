@@ -30,8 +30,8 @@ const Header = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-10">
-        <ul className="flex justify-center gap-8 items-baseline">
-          <li className="text-2xl font-semibold tracking-wide text-gray-200 hover:text-blue-400 transition-all duration-300 transform hover:scale-105">
+        <ul className="flex justify-center  gap-8 items-baseline">
+          <li className="text-2xl hidden sm:block font-semibold tracking-wide text-gray-200 hover:text-blue-400 transition-all duration-300 transform hover:scale-105">
             <Link href="/" className={linkStyle("/")}>
               Your Company
             </Link>
@@ -81,14 +81,6 @@ const Header = () => {
             <li>
               <Link href="/users" className={`text-lg ${linkStyle("/users")}`}>
                 Users
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className={`text-lg ${linkStyle("/contact")}`}
-              >
-                Contact
               </Link>
             </li>
           </ul>
