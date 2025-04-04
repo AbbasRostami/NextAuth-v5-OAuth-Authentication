@@ -1,37 +1,27 @@
 import LikeButton from "@/components/Buttons/LikeButton";
-import { Metadata } from "next";
+import { PostsType } from "@/lib/GetDetails";
 import Link from "next/link";
-export interface PostsType {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
-export const metadata: Metadata = {
-  title: "Posts List | Blog",
-  description: "Browse the latest blog posts and enjoy engaging content.",
-};
+
+
 
 export default async function Posts() {
   const GetPosts = async (): Promise<PostsType[]> => {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
       cache: "force-cache",
     });
-    const data = await res.json();
-    console.log("data", data);
 
     if (!res.ok) {
       throw new Error("Failed to fetch posts");
     }
 
-    return data;
+    return res.json();
   };
 
   const posts = await GetPosts();
 
   return (
     <>
-      <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6">
         <h1 className="text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-blue-600 mb-10">
           Posts
         </h1>
