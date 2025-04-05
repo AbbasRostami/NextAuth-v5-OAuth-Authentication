@@ -26,8 +26,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       authorize: async (credentials) => {
         try {
-          console.log("📩 Sending login request:", credentials);
-
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
             {
@@ -41,7 +39,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
 
           const data = await res.json();
-          console.log("🔍 API login response:", data);
 
           if (!res.ok) {
             return Promise.reject(
@@ -62,9 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     jwt: async ({ token, user, account }) => {
-      console.log("🔑 Account:", account);
-      console.log("🔑 User:", user);
-
       if (account?.access_token) {
         token.accessToken = account.access_token;
       }
@@ -73,12 +67,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.accessToken = user.accessToken;
       }
 
-      console.log("🔑 Final token:", token);
       return token;
     },
     session: async ({ session, token }) => {
-      console.log("🛠 Token in session:", token);
-
       session.accessToken = token.accessToken as string | undefined;
       return session;
     },

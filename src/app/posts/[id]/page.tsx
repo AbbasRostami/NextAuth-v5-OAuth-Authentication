@@ -1,15 +1,11 @@
 import { GetDetails } from "@/lib/GetDetails";
 
-
-
 export default async function PostDetailPage({
   params,
 }: {
   params: Promise<{ id: number }>;
 }) {
-
   const resolvedParams = await params;
-
 
   const post = await GetDetails(resolvedParams.id);
 

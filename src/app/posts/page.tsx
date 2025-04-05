@@ -2,8 +2,6 @@ import LikeButton from "@/components/Buttons/LikeButton";
 import { PostsType } from "@/lib/GetDetails";
 import Link from "next/link";
 
-
-
 export default async function Posts() {
   const GetPosts = async (): Promise<PostsType[]> => {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -21,7 +19,7 @@ export default async function Posts() {
 
   return (
     <>
-    <div className="container mx-auto p-6">
+      <div className="container mx-auto p-6">
         <h1 className="text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-blue-600 mb-10">
           Posts
         </h1>
