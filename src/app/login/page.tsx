@@ -35,7 +35,7 @@ export default function LoginForm() {
         email: values.email,
         password: values.password,
         redirect: true,
-        redirectUrl: "/",
+        callbackUrl: "/",
       });
 
       console.log("✅ Server response:", res);
