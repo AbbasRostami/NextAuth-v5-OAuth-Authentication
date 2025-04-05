@@ -29,9 +29,9 @@ const Header = () => {
         <div className="w-72 h-72 bg-blue-500 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-10">
-        <ul className="flex justify-center  gap-8 items-baseline">
-          <li className="text-2xl hidden sm:block font-semibold tracking-wide text-gray-200 hover:text-blue-400 transition-all duration-300 transform hover:scale-105">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center relative z-10">
+        <ul className="flex justify-center  gap-2 items-baseline">
+          <li className="text-2xl mr-2 hidden sm:block font-semibold tracking-wide text-gray-200 hover:text-blue-400 transition-all duration-300 transform hover:scale-105">
             <Link href="/" className={linkStyle("/")}>
               Your Company
             </Link>
@@ -49,7 +49,7 @@ const Header = () => {
               <li>
                 <Link
                   href="/register"
-                  className={`text-lg ${linkStyle("/register")}`}
+                  className={`mr-2 text-lg ${linkStyle("/register")}`}
                 >
                   Register
                 </Link>
@@ -67,7 +67,7 @@ const Header = () => {
         </ul>
 
         <nav>
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-3 md:space-x-6">
             <li>
               <Link href="/form" className={`text-lg ${linkStyle("/form")}`}>
                 Form
@@ -85,6 +85,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+
       </div>
 
       <div className="absolute -top-10 left-10 w-32 h-32 bg-indigo-500 opacity-20 blur-3xl animate-bounce"></div>
