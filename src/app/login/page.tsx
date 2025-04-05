@@ -34,7 +34,8 @@ export default function LoginForm() {
       const res = await signIn("credentials", {
         email: values.email,
         password: values.password,
-        redirect: false,
+        redirect: true,
+        redirectUrl: "/",
       });
 
       console.log("✅ Server response:", res);
