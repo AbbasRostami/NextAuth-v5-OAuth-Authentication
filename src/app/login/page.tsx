@@ -125,7 +125,7 @@ export default function LoginForm() {
             className="w-full flex justify-center items-center gap-3 bg-white p-3 rounded-lg shadow-md hover:bg-teal-200 transition-all duration-300 transform hover:scale-105"
           >
             <FaGithub size={24} />
-            <p className="text-gray-800">Continue with GitHub</p>
+            <p className="text-gray-800 text-sm md:text-base">Continue with GitHub</p>
           </button>
 
           <button
@@ -133,7 +133,7 @@ export default function LoginForm() {
             className="w-full flex justify-center items-center gap-3 bg-white text-black p-3 rounded-lg shadow-md hover:bg-amber-200 transition-all duration-300 transform hover:scale-105"
           >
             <FcGoogle size={24} />
-            <p className="text-black">Continue with Google</p>
+            <p className="text-black text-sm md:text-base">Continue with Google</p>
           </button>
         </div>
       </div>

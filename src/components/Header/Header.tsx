@@ -9,8 +9,6 @@ const Header = () => {
 
   const { data: session } = useSession();
 
-  console.log("Session dataaa:", session);
-
   const linkStyle = (href: string) => `
     relative text-xl font-semibold transition-all duration-300
     ${pathname === href ? "text-teal-400" : "text-gray-300"}
