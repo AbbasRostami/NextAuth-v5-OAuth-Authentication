@@ -29,6 +29,7 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
 
+  // console.log("Log Session: ", session);
   return (
     <html lang="en">
       <body
